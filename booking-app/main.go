@@ -22,16 +22,22 @@ func main() {
 	var firstName string
 	var lastName string
 	var email string
-	var userTickets int
+	var userTickets uint
 	// ask user name
 	fmt.Println("Please enter first name")
 	fmt.Scan(&firstName)
+	fmt.Println("Please enter last name")
 	fmt.Scan(&lastName)
+	fmt.Println("Please enter email")
 	fmt.Scan(&email)
+	fmt.Println("Please enter number of tickets")
 	fmt.Scan(&userTickets)
 
-	
+	// calculate remaining tickets
+	remainingTickets = remainingTickets - userTickets
+
 	userTickets = 2
 	fmt.Printf("User %v booked %v tickets. You will get confirmation at %v \n", firstName, userTickets, email)
+	fmt.Printf("%v tickets remaining for conference %v \n", remainingTickets, conferenceName)
 
 }
