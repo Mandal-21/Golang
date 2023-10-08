@@ -7,7 +7,8 @@ func main() {
 	conferenceName := "Go conference"
 	const conferenceTickets int = 50
 	var remainingTickets uint = 50
-	var booking [50]string // array of fixed length strings. Its limit is 50
+	// var booking [50]string // array of fixed length strings. Its limit is 50
+	booking := []string{} // In slices we dont have to worry about length
 
 	fmt.Println(conferenceName)
 	fmt.Println(&conferenceName) // points to the memory address of conferenceName
@@ -37,15 +38,24 @@ func main() {
 	// calculate remaining tickets
 	remainingTickets = remainingTickets - userTickets
 
-	// add first name and last name to booking array
-	booking[0] = firstName + " " + lastName
-	fmt.Printf("The whole array %v\n", booking)
+	// add first name and last name to booking
+
+	// booking[0] = firstName + " " + lastName
+	// fmt.Printf("The whole array %v\n", booking)
+	// fmt.Printf("The first value %v\n", booking[0])
+	// fmt.Printf("The first value %T\n", booking)
+	// fmt.Printf("Array length: %v\n", len(booking))
+
+	booking = append(booking, firstName+" "+lastName) //slice
+	fmt.Printf("The whole slice: %v\n", booking)
 	fmt.Printf("The first value %v\n", booking[0])
-	fmt.Printf("The first value %T\n", booking)
-	fmt.Printf("Array length: %v\n", len(booking))
+	fmt.Printf("Slice type: %T\n", booking)
+	fmt.Printf("Slice length: %v\n", len(booking))
 
 	userTickets = 2
 	fmt.Printf("User %v booked %v tickets. You will get confirmation at %v \n", firstName, userTickets, email)
 	fmt.Printf("%v tickets remaining for conference %v \n", remainingTickets, conferenceName)
+
+	fmt.Printf("These are all our booking: %v\n", booking)
 
 }
