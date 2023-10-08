@@ -48,7 +48,11 @@ func main() {
 		fmt.Println("Please enter number of tickets")
 		fmt.Scan(&userTickets)
 
-		if userTickets <= remainingTickets {
+		isValidName := len(firstName) >= 2 && len(lastName) >= 2
+		isValidEmail := strings.Contains(email, "@")
+		isValidTicketNumber := userTickets > 0 && userTickets <= remainingTickets
+
+		if isValidName && isValidEmail && isValidTicketNumber {
 			// calculate remaining tickets
 			remainingTickets = remainingTickets - userTickets
 
@@ -75,7 +79,15 @@ func main() {
 				break
 			}
 		} else {
-			fmt.Println("Sorry, we dont have enough tickets")
+			if !isValidName {
+				fmt.Println("Please enter valid first and last name")
+			}
+			if !isValidEmail {
+				fmt.Println("Please enter valid email")
+			}
+			if !isValidTicketNumber {
+				fmt.Println("Please enter valid ticket number")
+			}
 		}
 
 	}
