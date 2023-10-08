@@ -91,4 +91,19 @@ func main() {
 		}
 
 	}
+
+	// Switch Statements
+	city := "London"
+	switch city {
+	case "London":
+		fmt.Println("London is the capital city of England.")
+	case "Paris":
+		fmt.Println("Paris is the capital city of France.")
+	case "New York":
+		fmt.Println("New York is the capital city of USA.")
+	case "Mexico", "Berlin":
+		fmt.Println("Berlin is the capital city of Germany.")
+	default:
+		fmt.Println("No Valid city selected")
+	}
 }
