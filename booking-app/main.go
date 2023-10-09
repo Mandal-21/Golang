@@ -3,6 +3,8 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
+	"sync"
+	"time"
 )
 
 // Global variables
@@ -24,6 +26,8 @@ type userData struct {
 	email       string
 	userTickets uint
 }
+
+var wg = sync.WaitGroup{}
 
 func main() {
 
@@ -51,6 +55,8 @@ func main() {
 		if isValidName && isValidEmail && isValidTicketNumber {
 			// calculate remaining tickets
 			bookTicket(firstName, lastName, userTickets, email)
+			wg.Add(1)
+			go sendTicket(firstName, lastName, userTickets, email)
 
 			firstNames := getFirstNames()
 			fmt.Printf("First names from the booking are: %v\n", firstNames)
@@ -89,6 +95,7 @@ func main() {
 	default:
 		fmt.Println("No Valid city selected")
 	}
+	wg.Wait()
 }
 
 func greetUsers() {
@@ -147,4 +154,13 @@ func bookTicket(firstName string, lastName string, userTickets uint, email strin
 	fmt.Printf("User %v booked %v tickets. You will get confirmation at %v \n", firstName, userTickets, email)
 	fmt.Printf("%v tickets remaining for conference %v \n", remainingTickets, conferenceName)
 	return booking
+}
+
+func sendTicket(firstName string, lastName string, userTickets uint, email string) {
+	time.Sleep(10 * time.Second)
+	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
+	fmt.Println("################################")
+	fmt.Printf("Sending ticket:\n %v \n to email address %v\n", ticket, email)
+	fmt.Println("################################")
+	wg.Done()
 }
