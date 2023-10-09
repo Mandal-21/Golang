@@ -3,7 +3,6 @@ package main
 import (
 	"booking-app/helper"
 	"fmt"
-	"strconv"
 )
 
 // Global variables
@@ -16,7 +15,15 @@ var remainingTickets uint = 50
 
 // var booking [50]string // array of fixed length strings. Its limit is 50
 // var booking = []string{} // In slices we dont have to worry about length
-var booking = make([]map[string]string, 0)
+// var booking = make([]map[string]string, 0)
+var booking = make([]userData, 0)
+
+type userData struct {
+	firstName   string
+	lastName    string
+	email       string
+	userTickets uint
+}
 
 func main() {
 
@@ -93,7 +100,7 @@ func greetUsers() {
 func getFirstNames() []string {
 	firstNames := []string{}
 	for _, book := range booking {
-		firstNames = append(firstNames, book["firstName"])
+		firstNames = append(firstNames, book.firstName)
 	}
 	return firstNames
 }
@@ -116,15 +123,23 @@ func getUserInput() (string, string, string, uint) {
 	return firstName, lastName, email, userTickets
 }
 
-func bookTicket(firstName string, lastName string, userTickets uint, email string) []map[string]string {
+func bookTicket(firstName string, lastName string, userTickets uint, email string) []userData {
 	remainingTickets = remainingTickets - userTickets
 	// booking = append(booking, firstName+" "+lastName) //slice
 	// make key value pairs
-	var userData = make(map[string]string)
-	userData["firstName"] = firstName
-	userData["lastName"] = lastName
-	userData["email"] = email
-	userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+	// var userData = make(map[string]string)
+	// userData["firstName"] = firstName
+	// userData["lastName"] = lastName
+	// userData["email"] = email
+	// userData["numberOfTickets"] = strconv.FormatUint(uint64(userTickets), 10)
+
+	// struct
+	userData := userData{
+		firstName:   firstName,
+		lastName:    lastName,
+		email:       email,
+		userTickets: userTickets,
+	}
 
 	booking = append(booking, userData)
 	fmt.Printf("List of bookings: %v\n", booking)
